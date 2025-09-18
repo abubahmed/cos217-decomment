@@ -249,6 +249,11 @@ int main(void) {
             break;
         }
     };
+
+    if (c == EOF && state == MAYBE_COMMENT) {
+        putchar('/');
+    }
+
     enum StateAccept finalState = typeToAccept[state];
     switch (finalState) {
     case ACCEPT:
