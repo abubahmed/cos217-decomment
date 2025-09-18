@@ -184,7 +184,6 @@ handleInCommentState(int c) {
         state = MAYBE_END_COMMENT;
     } else if (c == '\n') {
         putchar('\n');
-        state = IN_COMMENT;
     }
     return state;
 }
@@ -205,6 +204,8 @@ handleMaybeEndCommentState(int c) {
         state = NORMAL;
     } else if (c == '*') {
         state = MAYBE_END_COMMENT;
+    } else if (c == '\n') {
+        putchar('\n');
     }
     return state;
 }
