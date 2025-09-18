@@ -54,10 +54,10 @@ handleNormalState(int c) {
         putchar(c);
     }
     return state;
-};
+}
 
 /*
-Function for handling IN_STRING state. If a quote is encountered, go to NORMAL state. If a backslash is encountered, go to IN_ESCAPE_STRING state. Otherwise, stay in IN_STRING state. 
+Function for handling IN_STRING state. If a quote is encountered, go to NORMAL state. If a backslash is encountered, go to IN_ESCAPE_STRING state. Otherwise, stay in IN_STRING state.
 
 Print character to output.
 
@@ -78,7 +78,7 @@ handleInStringState(int c) {
         putchar(c);
     }
     return state;
-};
+}
 
 /*
 Function for handling IN_CHAR state. If a single quote is encountered, go to NORMAL state. If a backslash is encountered, go to IN_ESCAPE_CHAR state. Otherwise, stay in IN_CHAR state.
@@ -102,7 +102,7 @@ handleInCharState(int c) {
         putchar(c);
     }
     return state;
-};
+}
 
 /*
 Function for handling IN_ESCAPE_STRING state. Enter IN_STRING state.
@@ -117,7 +117,7 @@ Returns:
 handleInEscapeStringState(int c) {
     putchar(c);
     return IN_STRING;
-};
+}
 
 /*
 Function for handling IN_ESCAPE_CHAR state. Enter IN_CHAR state.
@@ -132,7 +132,7 @@ Returns:
 handleInEscapeCharState(int c) {
     putchar(c);
     return IN_CHAR;
-};
+}
 
 /*
 Function for handling MAYBE_COMMENT state. If an asterisk is encountered, go to IN_COMMENT state. If a forward slash is encountered, go to MAYBE_COMMENT state. Otherwise, go to NORMAL state.
@@ -158,7 +158,7 @@ handleMaybeCommentState(int c) {
         putchar(c);
     }
     return state;
-};
+}
 
 /*
 Function for handling IN_COMMENT state. If an asterisk is encountered, go to MAYBE_END_COMMENT state. If a newline is encountered, stay in IN_COMMENT state. Otherwise, stay in IN_COMMENT state.
@@ -179,7 +179,7 @@ handleInCommentState(int c) {
         state = IN_COMMENT;
     }
     return state;
-};
+}
 
 /*
 Function for handling MAYBE_END_COMMENT state. If a forward slash is encountered, go to NORMAL state. If an asterisk is encountered, stay in MAYBE_END_COMMENT state. Otherwise, enter IN_COMMENT state.
@@ -199,7 +199,7 @@ handleMaybeEndCommentState(int c) {
         state = MAYBE_END_COMMENT;
     }
     return state;
-};
+}
 
 /*
 Main function that reads characters from input and processes to output them according to current DFA state. After processing all inputs, checks final state and exits program accordingly.
@@ -251,4 +251,4 @@ int main(void) {
         }
         return 1;
     }
-};
+}
