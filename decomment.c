@@ -135,7 +135,7 @@ handleInEscapeCharState(int c) {
 }
 
 /*
-Function for handling MAYBE_COMMENT state. If an asterisk is encountered, go to IN_COMMENT state. If a forward slash is encountered, go to MAYBE_COMMENT state. Otherwise, go to NORMAL state.
+Function for handling MAYBE_COMMENT state. If an asterisk is encountered, go to IN_COMMENT state. If a forward slash is encountered, go to MAYBE_COMMENT state. If a quote is encountered, go to IN_STRING state. If a single quote is encountered, go to IN_CHAR state. Otherwise, enter NORMAL state.
 
 Print character to output unless entering IN_COMMENT state.
 
@@ -153,6 +153,14 @@ handleMaybeCommentState(int c) {
     } else if (c == '/') {
         putchar('/');
         state = MAYBE_COMMENT;
+    } else if (c == '"') {
+        putchar('/');
+        putchar(c);
+        state = IN_STRING;
+    } else if (c == '\'') {
+        putchar('/');
+        putchar(c);
+        state = IN_CHAR;
     } else {
         putchar('/');
         putchar(c);

@@ -23,11 +23,12 @@ IN_ESCAPE_CHAR (accept)
 MAYBE_COMMENT (accept)
     *: IN_COMMENT
     /: MAYBE_COMMENT
+    ": IN_STRING
+    ': IN_CHAR
     other: NORMAL
 
 IN_COMMENT (reject)
     *: MAYBE_END_COMMENT
-    \n: IN_COMMENT
     other: IN_COMMENT
 
 MAYBE_END_COMMENT (reject)
