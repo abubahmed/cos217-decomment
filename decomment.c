@@ -40,7 +40,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleNormalState(int c) {
+enum StateType handleNormalState(int c) {
     enum StateType state = NORMAL;
     if (c == '"') {
         putchar(c);
@@ -66,7 +66,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleInStringState(int c) {
+enum StateType handleInStringState(int c) {
     enum StateType state = IN_STRING;
     if (c == '"') {
         putchar(c);
@@ -90,7 +90,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleInCharState(int c) {
+enum StateType handleInCharState(int c) {
     enum StateType state = IN_CHAR;
     if (c == '\'') {
         putchar(c);
@@ -114,7 +114,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleInEscapeStringState(int c) {
+enum StateType handleInEscapeStringState(int c) {
     putchar(c);
     return IN_STRING;
 }
@@ -129,7 +129,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleInEscapeCharState(int c) {
+enum StateType handleInEscapeCharState(int c) {
     putchar(c);
     return IN_CHAR;
 }
@@ -144,7 +144,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleMaybeCommentState(int c) {
+enum StateType handleMaybeCommentState(int c) {
     enum StateType state = NORMAL;
     if (c == '*') {
         putchar(' ');
@@ -178,7 +178,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleInCommentState(int c) {
+enum StateType handleInCommentState(int c) {
     enum StateType state = IN_COMMENT;
     if (c == '*') {
         state = MAYBE_END_COMMENT;
@@ -198,7 +198,7 @@ Arguments:
 Returns:
     state: next DFA state
 */
-handleMaybeEndCommentState(int c) {
+enum StateType handleMaybeEndCommentState(int c) {
     enum StateType state = IN_COMMENT;
     if (c == '/') {
         state = NORMAL;
@@ -206,6 +206,8 @@ handleMaybeEndCommentState(int c) {
         state = MAYBE_END_COMMENT;
     } else if (c == '\n') {
         putchar('\n');
+    } else {
+        state = IN_COMMENT;
     }
     return state;
 }
@@ -255,8 +257,8 @@ int main(void) {
         putchar('/');
     }
 
-    enum StateAccept finalState = typeToAccept[state];
-    switch (finalState) {
+    /* Handle program exit according to current DFA state  */
+    switch (typeToAccept[state]) {
     case ACCEPT:
         return 0;
     case REJECT:
