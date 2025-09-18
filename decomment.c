@@ -250,7 +250,7 @@ int main(void) {
         }
     };
 
-    if (c == EOF && state == MAYBE_COMMENT) {
+    if (state == MAYBE_COMMENT) {
         putchar('/');
     }
 
